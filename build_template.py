@@ -34,6 +34,7 @@ for path in files_and_dirs:
     dir, file = os.path.split(path)
 
     if dir and not os.path.exists(dir):
+        print(dir)
         os.makedirs(dir, exist_ok=True)
         logging.info(f"Creating directory:{dir}")
 
