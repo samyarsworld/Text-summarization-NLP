@@ -4,7 +4,7 @@ import logging
 # Setup information level (e.g., WARNING, ERROR, CRITICAL) logging
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s]: %(message)s:')
 
-project_title = "text-summarization-NLP"
+project_title = "text_summarizer"
 
 # Project structure initialization
 files_and_dirs = [
