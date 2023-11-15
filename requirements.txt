@@ -1,3 +1,6 @@
+pyYAML
+ensure
+
 
 # Automatically installs setuptools
 -e . 
