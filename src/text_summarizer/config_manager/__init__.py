@@ -38,10 +38,10 @@ class ConfigManager:
 
         return config
 
-    def get_data_training_config(self) -> Dict:
-        config = self.config["data_training"]
+    def get_model_training_config(self) -> Dict:
+        config = self.config["model_training"]
 
-        # Create data_training directories and files
+        # Create model_training directories and files
         create_directories([config["root_dir"]])
 
         return config
