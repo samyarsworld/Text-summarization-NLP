@@ -6,19 +6,19 @@
 
 1.1 - Include logging feature.
 
-2 - Build configuration class tools for different stages deep learning design to have one source of truth.
+2 - Build configuration class tools for different stages of deep learning design to have one source of truth.
 
-3 - Build model by importing data, building dataset, network, training, evaluation, and prediction pipelines.
+3 - Build a model by importing data, building a dataset, network, training, evaluation, and prediction pipelines.
 
-4 - Keep track of the project on github and use github action for CD/CI and deployment.
+4 - Keep track of the project on GitHub and use GitHub action for CD/CI and deployment.
 
-5 - Containerize project using Docker.
+5 - Containerize the project using Docker.
 
 6 - Deploy the model on AWS using S3, EC2, and possibly EKS service.
 
 # Model
 
-Pegasus transformer model from hugging face project is used.
+Pegasus transformer model from the hugging face project is used.
 https://huggingface.co/docs/transformers/model_doc/pegasus
 
 # SentencePiece
@@ -52,9 +52,9 @@ Measures the overlap of skip-bigrams, which are pairs of words that are separate
 
 Combines skip-bigram and unigram measures.
 
-# BLEU score from sacrebleu library:
+# BLEU score from Sacrebleu Library:
 
-The BLEU (Bilingual Evaluation Understudy) score is a metric used to evaluate the quality of machine-generated translations by comparing them to one or more human-generated reference translations. It was proposed as a metric for automatic evaluation of machine translation output.
+The BLEU (Bilingual Evaluation Understudy) score is a metric used to evaluate the quality of machine-generated translations by comparing them to one or more human-generated reference translations. It was proposed as a metric for the automatic evaluation of machine-translation output.
 
 The BLEU score is based on the precision of the n-grams (contiguous sequences of n items, usually words) produced by the machine translation system. Here are the key components and concepts associated with the BLEU score:
 
@@ -92,7 +92,7 @@ It's important to note that BLEU is just one of many metrics used to evaluate ma
 
 # Workflow:
 
-In order, each of these files need to update when we add a new pipeline (stage):
+In order, each of these files needs to update when we add a new pipeline (stage):
 
 1- Update config.yaml
 2- Update params.yaml
