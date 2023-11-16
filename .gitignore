@@ -1,3 +1,10 @@
+# Temp artifacts
+artifacts/
+
+
+# Config credentials
+config/.env
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

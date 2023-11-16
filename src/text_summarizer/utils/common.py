@@ -29,7 +29,7 @@ def read_yaml(yaml_file_path) -> Dict:
     
     
 @ensure_annotations
-def create_directories(dirs_path: list) -> None:
+def create_directories(dirs_path: list):
     """
     creates a list of directories.
 
@@ -42,3 +42,5 @@ def create_directories(dirs_path: list) -> None:
     for dir_path in dirs_path:
         os.makedirs(dir_path, exist_ok=True)
         logger.info(f"directory created at: {dir_path}")
+
+

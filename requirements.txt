@@ -1,6 +1,6 @@
 pyYAML
 ensure
-
+boto3
 
 # Automatically installs setuptools
 -e . 

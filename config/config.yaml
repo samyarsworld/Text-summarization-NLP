@@ -1,0 +1,8 @@
+# A directory For all the produced outputs
+artifacts_root: artifacts
+
+# Import dataset
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  AWS_BUCKET_NAME: text-summarization-dataset
+  AWS_DATASET_NAME: data.zip
