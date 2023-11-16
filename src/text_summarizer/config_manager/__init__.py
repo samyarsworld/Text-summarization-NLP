@@ -21,3 +21,11 @@ class ConfigManager:
         create_directories([config["root_dir"]])
 
         return config
+
+    def get_data_validation_config(self) -> Dict:
+        config = self.config["data_validation"]
+
+        # Create data_validation directories and files
+        create_directories([config["root_dir"]])
+
+        return config

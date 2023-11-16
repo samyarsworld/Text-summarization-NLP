@@ -15,7 +15,7 @@ class DataIngestion:
         self.key = config["AWS_DATASET_NAME"]
 
     
-    def get_files(self):
+    def download_files(self):
         """
         Downloads the files from AWS s3 to the data directory
 
