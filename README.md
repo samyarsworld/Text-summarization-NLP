@@ -1,4 +1,4 @@
-# Text-summarization-NLP
+# Text summarization using NLP
 
 ### Project plan
 
