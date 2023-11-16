@@ -1,14 +1,17 @@
 # A directory For all the produced outputs
 artifacts_root: artifacts
 
-# Import dataset
 data_ingestion:
   root_dir: artifacts/data_ingestion
   AWS_BUCKET_NAME: text-summarization-dataset
   AWS_DATASET_NAME: data.zip
 
-# Validate dataset
 data_validation:
   root_dir: artifacts/data_validation
   required_files: ["train", "test", "validation"]
   status_path: artifacts/data_validation/status.txt
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/dataset
+  tokenizer: google/pegasus-cnn_dailymail

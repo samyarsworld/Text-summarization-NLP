@@ -29,3 +29,20 @@ class ConfigManager:
         create_directories([config["root_dir"]])
 
         return config
+    
+    def get_data_transformation_config(self) -> Dict:
+        config = self.config["data_transformation"]
+
+        # Create data_transformation directories and files
+        create_directories([config["root_dir"]])
+
+        return config
+
+    def get_data_training_config(self) -> Dict:
+        config = self.config["data_training"]
+
+        # Create data_training directories and files
+        create_directories([config["root_dir"]])
+
+        return config
+

@@ -1,6 +1,8 @@
 pyYAML
 ensure
 boto3
-
+torch
+transformers[sentencepiece]
+datasets
 # Automatically installs setuptools
 -e . 
