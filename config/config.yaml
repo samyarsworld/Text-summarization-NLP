@@ -54,3 +54,8 @@ model_evaluation:
   params:
     eval_batch_size: 2
     n_samples: 10
+
+target_prediction:
+  root_dir: artifacts/target_prediction
+  tokenizer_path: artifacts/model_trainers/pegasus-cnn_dailymail/tokenizer
+  model_path: artifacts/model_trainers/pegasus-cnn_dailymail/model

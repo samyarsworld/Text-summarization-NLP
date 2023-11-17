@@ -15,7 +15,6 @@ files_and_dirs = [
     f"src/{project_title}/__init__.py",
     f"src/{project_title}/components/__init__.py",
     f"src/{project_title}/utils/__init__.py",
-    f"src/{project_title}/utils/common.py",
     f"src/{project_title}/logging/__init__.py",
     f"src/{project_title}/config_manager/__init__.py",
     f"src/{project_title}/pipeline/__init__.py",

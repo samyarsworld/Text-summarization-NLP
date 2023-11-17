@@ -1,4 +1,4 @@
-from text_summarizer.utils.common import read_yaml, create_directories
+from text_summarizer.utils import read_yaml, create_directories
 from pathlib import Path
 from typing import Dict
 
@@ -40,6 +40,12 @@ class ConfigManager:
 
     def get_model_evaluation_config(self) -> Dict:
         config = self.config["model_evaluation"]
+        create_directories([config["root_dir"]])
+
+        return config
+    
+    def get_target_prediction_config(self) -> Dict:
+        config = self.config["target_prediction"]
         create_directories([config["root_dir"]])
 
         return config
