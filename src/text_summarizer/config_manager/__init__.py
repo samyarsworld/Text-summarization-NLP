@@ -38,3 +38,9 @@ class ConfigManager:
 
         return config
 
+    def get_model_evaluation_config(self) -> Dict:
+        config = self.config["model_evaluation"]
+        create_directories([config["root_dir"]])
+
+        return config
+

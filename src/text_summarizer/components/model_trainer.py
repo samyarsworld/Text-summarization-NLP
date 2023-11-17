@@ -11,7 +11,7 @@ class ModelTrainer:
         self.root_dir = config["root_dir"]
         self.data_path = config["data_path"]
         self.model_ckpt = config["model_ckpt"]
-        self.algorithm_name = config["algorithm_name"]
+        self.main_path = config["main_path"]
 
         self.h_params = config["h_params"]
 
@@ -27,11 +27,9 @@ class ModelTrainer:
 
         # Load data to a data dictionary (train, validation, test)
         data_dict = load_from_disk(self.data_path)
-
-        output_dir = os.path.join(self.root_dir, self.algorithm_name)
         
         trainer_args = TrainingArguments(
-            output_dir=output_dir,
+            output_dir=os.path.join(self.main_path, "arguments"),
             num_train_epochs=self.h_params["epochs"],
             warmup_steps=self.h_params["warmup_steps"],
             per_device_train_batch_size=self.h_params["train_batch_size"],
@@ -49,13 +47,13 @@ class ModelTrainer:
             args=trainer_args,
             tokenizer=tokenizer,
             data_collator=seq2seq_data_collator,
-            train_dataset=data_dict["train"], 
+            train_dataset=data_dict["test"], # Change to train if machine has more computational resources
             eval_dataset=data_dict["validation"]
         )
 
         trainer.train()
 
         # ## Save model
-        # model.save_pretrained(os.path.join(output_dir, "model"))
+        # model.save_pretrained(os.path.join(self.main_path, "model"))
         # ## Save tokenizer
-        # tokenizer.save_pretrained(os.path.join(output_dir, "tokenizer"))
+        # tokenizer.save_pretrained(os.path.join(self.main_path, "tokenizer"))

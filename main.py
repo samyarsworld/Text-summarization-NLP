@@ -4,6 +4,8 @@ from text_summarizer.pipeline.data_ingestion import DataIngestionPipeline
 from text_summarizer.pipeline.data_validation import DataValidationPipeline
 from text_summarizer.pipeline.data_transformation import DataTransformationPipeline
 from text_summarizer.pipeline.model_training import ModelTrainingPipeline
+from text_summarizer.pipeline.model_evaluation import ModelEvaluationPipeline
+
 
 
 config = ConfigManager()
@@ -41,13 +43,25 @@ config = ConfigManager()
 #     raise e
 
 
-STAGE_NAME = "Model Training"
+# STAGE_NAME = "Model Training"
+# try:
+#    logger.info(f">>>>>> {STAGE_NAME} stage started <<<<<<") 
+#    model_training = ModelTrainingPipeline(config)
+#    model_training.run()
+#    logger.info(f">>>>>> {STAGE_NAME} stage completed <<<<<<")
+# except Exception as e:
+#     logger.exception(e)
+#     raise e
+
+
+STAGE_NAME = "Model Evaluation"
 try:
    logger.info(f">>>>>> {STAGE_NAME} stage started <<<<<<") 
-   model_training = ModelTrainingPipeline(config)
-   model_training.run()
+   model_evaluation = ModelEvaluationPipeline(config)
+   model_evaluation.run()
    logger.info(f">>>>>> {STAGE_NAME} stage completed <<<<<<")
 except Exception as e:
     logger.exception(e)
     raise e
+
 
