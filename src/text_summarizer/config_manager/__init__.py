@@ -10,39 +10,31 @@ class ConfigManager:
         self.config = read_yaml(config_filepath)
         self.params = read_yaml(params_filepath)
 
-        # Create artifacts directory
+        # Create directories does not override files and folders that already exist 
         create_directories([self.config["artifacts_root"]])
 
     
     def get_data_ingestion_config(self) -> Dict:
         config = self.config["data_ingestion"]
-
-        # Create data_ingestion directories and files
         create_directories([config["root_dir"]])
 
         return config
 
     def get_data_validation_config(self) -> Dict:
         config = self.config["data_validation"]
-
-        # Create data_validation directories and files
         create_directories([config["root_dir"]])
 
         return config
     
     def get_data_transformation_config(self) -> Dict:
         config = self.config["data_transformation"]
-
-        # Create data_transformation directories and files
         create_directories([config["root_dir"]])
 
         return config
 
-    def get_model_training_config(self) -> Dict:
-        config = self.config["model_training"]
-
-        # Create model_training directories and files
-        create_directories([config["root_dir"]])
+    def get_model_trainer_config(self) -> Dict:
+        config = self.config["model_trainer"]
+        create_directories([config["root_dir"], config["root_dir"] + "/" + config["algorithm_name"]])
 
         return config
 

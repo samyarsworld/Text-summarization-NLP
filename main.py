@@ -6,7 +6,6 @@ from text_summarizer.pipeline.data_transformation import DataTransformationPipel
 from text_summarizer.pipeline.model_training import ModelTrainingPipeline
 
 
-
 config = ConfigManager()
 
 # STAGE_NAME = "Data Ingestion"
@@ -51,3 +50,4 @@ try:
 except Exception as e:
     logger.exception(e)
     raise e
+

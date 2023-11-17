@@ -1,4 +1,4 @@
-from text_summarizer.components.model_training import ModelTraining
+from text_summarizer.components.model_trainer import ModelTrainer
 
 
 class ModelTrainingPipeline:
@@ -6,7 +6,6 @@ class ModelTrainingPipeline:
         self.config = config
 
     def run(self):
-        model_training_config = self.config.get_model_training_config()
-        model_training= ModelTraining(model_training_config)
-
-        return model_training.train()
+        model_trainer_config = self.config.get_model_trainer_config()
+        model_trainer= ModelTrainer(model_trainer_config)
+        model_trainer.train()

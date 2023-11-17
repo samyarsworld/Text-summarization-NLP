@@ -11,21 +11,22 @@ class DataTransformation:
         self.tokenizer = AutoTokenizer.from_pretrained(config["tokenizer"])
 
     def tokenize(self, batch):
-        input_encodings = self.tokenizer(batch["dialogue"], truncation=True, padding=True, max_length = 1024)
+        input_encodings = self.tokenizer(batch["dialogue"], truncation=True, max_length = 1024)
 
         with self.tokenizer.as_target_tokenizer():
-            target_encodings = self.tokenizer(batch["dialogue"], truncation=True, padding=True, max_length = 128)
+            target_encodings = self.tokenizer(batch["summary"], truncation=True, max_length = 128)
 
+        
         return {
             "input_ids": input_encodings["input_ids"],
             "attention_mask": input_encodings["attention_mask"],
-            "target": target_encodings["input_ids"],
+            "labels": target_encodings["input_ids"],
         }
 
     def transform(self):
-        data_dict = load_from_disk(self.data_path)
-        data_dict = data_dict.map(self.tokenize, batched = True)
+        # Load dataset splits (train, test, validation)
+        dataset = load_dataset(self.data_path)
 
-        data_dict.save_to_disk(os.path.join(self.root_dir,"dataset"))
+        dataset = dataset.map(self.tokenize, batched = True)
+        dataset.save_to_disk(os.path.join(self.root_dir,"dataset"))
         
-        print(data_dict)

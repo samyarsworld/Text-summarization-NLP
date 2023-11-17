@@ -10,4 +10,5 @@ class DataIngestionPipeline:
         data_ingestion_config = self.config.get_data_ingestion_config()
         data_ingestion = DataIngestion(data_ingestion_config)
         
-        data_ingestion.download_files()
+        data_ingestion.download_files_from_cloud()
+        data_ingestion.download_files_from_HuggingFace()

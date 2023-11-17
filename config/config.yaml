@@ -3,20 +3,43 @@ artifacts_root: artifacts
 
 data_ingestion:
   root_dir: artifacts/data_ingestion
+  data_class_path: artifacts/data_ingestion/samsum.py
   AWS_BUCKET_NAME: text-summarization-dataset
   AWS_DATASET_NAME: data.zip
 
 data_validation:
   root_dir: artifacts/data_validation
-  required_files: ["train", "test", "validation"]
+  required_files:
+    [
+      "train.csv",
+      "test.csv",
+      "validation.csv",
+      "dataset_infos.json",
+      "samsum.py",
+    ]
   status_path: artifacts/data_validation/status.txt
+  data_path: artifacts/data_ingestion
 
 data_transformation:
   root_dir: artifacts/data_transformation
-  data_path: artifacts/data_ingestion/dataset
+  data_path: artifacts/data_ingestion/samsum.py
   tokenizer: google/pegasus-cnn_dailymail
 
-model_training:
-  root_dir: artifacts/model_training
+model_trainer:
+  root_dir: artifacts/model_trainers
   data_path: artifacts/data_transformation/dataset
   model_ckpt: google/pegasus-cnn_dailymail
+  algorithm_name: pegasus-cnn_dailymail
+
+  # Model hyper parameters
+  h_params:
+    epochs: 1
+    warmup_steps: 500
+    train_batch_size: 1
+    eval_batch_size: 1
+    weight_decay: 0.01
+    logging_steps: 10
+    evaluation_strategy: "steps"
+    eval_steps: 500
+    save_steps: 1000000
+    gradient_accumulation_steps: 16
