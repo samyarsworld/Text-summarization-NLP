@@ -19,7 +19,6 @@ files_and_dirs = [
     f"src/{project_title}/config_manager/__init__.py",
     f"src/{project_title}/pipeline/__init__.py",
     "config/config.yaml",
-    "parameters.yaml",
     "testing/test.ipynb",
     "Dockerfile",
     ".github/workflows/.gitkeep",

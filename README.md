@@ -101,3 +101,10 @@ In order, each of these files needs to update when we add a new pipeline (stage)
 5- update the pipeline
 6- update main.py
 7- update app.py
+
+# We app and REST API:
+
+To handle concurrent requests, FastAPI alongside uvicorn is used.
+
+- FastAPI is a modern, fast (high-performance), web framework for building APIs that works with python.
+- "uvicorn" is used which is an ASGI (Asynchronous Server Gateway Interface) server implementation for Python web applications. ASGI is a specification for asynchronous web servers and frameworks that enables handling more concurrent connections with less resource usage compared to traditional synchronous web servers. To run async apps using uvicorn following command is used: "uvicorn myapp:app --host 0.0.0.0 --port 8000 --reload"

@@ -3,8 +3,10 @@ ensure
 boto3
 py7zr
 torch
+
 transformers[sentencepiece]
 datasets
+
 evaluate
 sacrebleu 
 rouge_score
@@ -12,5 +14,9 @@ nltk
 tqdm
 pandas
 matplotlib
+
+fastapi
+uvicorn
+
 # Automatically installs setuptools
 -e . 

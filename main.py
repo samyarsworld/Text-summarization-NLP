@@ -65,13 +65,13 @@ config = ConfigManager()
 #     raise e
 
 
-STAGE_NAME = "Target Prediction"
-try:
-   logger.info(f">>>>>> {STAGE_NAME} stage started <<<<<<") 
-   target_prediction = TargetPredictionPipeline(config)
-   prediction = target_prediction.run()
-   logger.info(f">>>>>> {STAGE_NAME} stage completed <<<<<<")
-except Exception as e:
-    logger.exception(e)
-    raise e
+# STAGE_NAME = "Target Prediction"
+# try:
+#    logger.info(f">>>>>> {STAGE_NAME} stage started <<<<<<") 
+#    target_prediction = TargetPredictionPipeline(config)
+#    prediction = target_prediction.run()
+#    logger.info(f">>>>>> {STAGE_NAME} stage completed <<<<<<")
+# except Exception as e:
+#     logger.exception(e)
+#     raise e
 
