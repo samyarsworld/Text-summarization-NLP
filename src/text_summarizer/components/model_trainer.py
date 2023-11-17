@@ -56,6 +56,6 @@ class ModelTrainer:
         trainer.train()
 
         # ## Save model
-        # model.save_pretrained(os.path.join(output_dir, self.algorithm_name))
+        # model.save_pretrained(os.path.join(output_dir, "model"))
         # ## Save tokenizer
         # tokenizer.save_pretrained(os.path.join(output_dir, "tokenizer"))
