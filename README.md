@@ -108,3 +108,99 @@ To handle concurrent requests, FastAPI alongside uvicorn is used.
 
 - FastAPI is a modern, fast (high-performance), web framework for building APIs that works with python.
 - "uvicorn" is used which is an ASGI (Asynchronous Server Gateway Interface) server implementation for Python web applications. ASGI is a specification for asynchronous web servers and frameworks that enables handling more concurrent connections with less resource usage compared to traditional synchronous web servers. To run async apps using uvicorn following command is used: "uvicorn myapp:app --host 0.0.0.0 --port 8000 --reload"
+
+# Containerization process:
+
+1. Build docker image
+2. Push docker image to AWS ECR
+3. Launch an EC2 instance in AWS
+4. Pull the docker image from AWS ECR
+5. Launch a container instance of the image in the EC2 instance
+
+# CD/CI Github actions description:
+
+## **1. Event Trigger:**
+
+This workflow is triggered on a push event to the main branch, excluding changes to the README.md file.
+
+## **2. Permissions:**
+
+Specifies GitHub App permissions for this workflow. It grants write access to the ID token and read access to the repository contents.
+
+- **d-token: write permission**, means that the workflow run is allowed to generate and use identity tokens with write access. This is necessary for workflows that interact with GitHub Apps.
+
+## **3. Jobs:**
+
+The workflow contains three jobs: integration, delivery, and deployment.
+
+### **3.1. Integration:**
+
+- **runs-on:** This key specifies the type of runner (execution environment) that the job will use. In this case, it's set to ubuntu-latest, which means the job will run on the latest version of the Ubuntu operating system provided by GitHub Actions.
+
+- **steps:** This is a list of individual tasks or steps that the job will execute sequentially.
+
+- **Step 1 (checkout code):**
+
+  - **uses:** Specifies an action that should be used for this step. In this case, it uses the actions/checkout@v3 action. The checkout action is commonly used to fetch the contents of the repository so that subsequent steps can operate on the code.
+
+- **Step 2 (lint code):**
+  Lint, or a linter, is a tool that analyzes source code to flag programming errors, bugs, stylistic errors, and suspicious constructs. This is a placeholder and will be replaced by actual linting commands.
+
+  - **run:** Defines a shell command that will be executed as part of this step. In this case, it's a simple echo command that outputs the text "Linting repository."
+
+- **Step 3 (run unit tests):**
+  - **run:** Defines a shell command for running unit tests. Similar to the previous step, it uses an echo command to output the text "Running unit tests." Again, this is a placeholder, and will be replaced by actual commands needed to run unit tests.
+
+Overall, this job checks out the code from the repository, and then includes steps for linting the code and running unit tests. Note that the actual linting and testing commands are not provided yet.
+
+### **3.2. Delivery:**
+
+- **needs:** Specifies that this job depends on the completion of another job named "integration"..
+
+- **Step 1 (checkout code):**
+
+  - **uses:** Specifies the actions/checkout@v3 action. This step ensures that the latest code from the repository is available for subsequent actions.
+
+- **Step 2 (install utilities):**
+
+  - **run:** Defines a multi-line shell script. In this case, it updates the package list (apt-get update) and installs the jq and unzip utilities.
+
+- **Step 3 (configure AWS credentials):**
+
+  - **uses:** Specifies the aws-actions/configure-aws-credentials@v1 action, which is used to configure AWS credentials for subsequent AWS-related actions. The credentials are included in the subsequent **with**, extracted from environment variables using secrets.
+
+- **Step 4 (login to Amazon ECR):**
+
+  - **id:** Assigns an identifier to this step. This identifier (ECR-login) can be used later in the workflow to reference the outputs of this step.
+
+- **Step 5 (push image to Amazon ECR):**
+
+  - **env:** Defines environment variables used in this step.
+  - **run:** Defines a multi-line shell script. This script builds a Docker image, tags it, and pushes it to Amazon ECR. The environment variables and outputs of the previous steps are used in this process.
+
+Overall, this job is essentially handling the deployment process, building a Docker image, and pushing it to Amazon ECR as part of a continuous delivery workflow.
+
+### **3.3. Deployment:**
+
+- **runs-on:** Indicates that this job will run on a self-hosted runner unlike the previous jobs that ran on GitHub-hosted runners.
+
+- **Step 1 (configure AWS credentials):**
+
+  - **uses:** Specifies the aws-actions/configure-aws-credentials@v1 action, which configures AWS credentials for subsequent AWS-related actions.
+
+- **Step 2 (login to Amazon ECR):**
+
+  - **id:** Assigns an identifier to this step. This identifier (ECR-login) can be used later in the workflow to reference the outputs of this step.
+
+- **Step 3 (pull latest image):**
+
+  - **run:** Defines a shell script that pulls the latest Docker image from Amazon ECR. The URL and repository name are obtained from the secrets.
+
+- **Step 4 (run Docker image to serve users):**
+
+  - **run:** Defines a shell script that runs a Docker container using the previously pulled image. The container is named "texts," and environment variables for AWS credentials and region are passed to the container.
+
+- **Step 5 (Clean previous images and containers):**
+  - **run:** Defines a shell script that cleans up previous Docker images and containers using docker system prune.
+
+Overall, this job is responsible for deploying the Docker image obtained from Amazon ECR by pulling the latest version and running a container. The steps involve configuring AWS credentials, logging in to Amazon ECR, pulling the latest image, running the Docker container, and cleaning up previous Docker artifacts.
