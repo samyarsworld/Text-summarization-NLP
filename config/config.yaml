@@ -31,7 +31,7 @@ model_trainer:
   model_ckpt: google/pegasus-cnn_dailymail
   main_path: artifacts/model_trainers/pegasus-cnn_dailymail
 
-  # Model hyper parameters
+  # Hyper parameters
   h_params:
     epochs: 1
     warmup_steps: 500
