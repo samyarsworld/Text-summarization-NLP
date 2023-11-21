@@ -117,8 +117,19 @@ To handle concurrent requests, FastAPI alongside uvicorn is used.
 4. Pull the docker image from AWS ECR
 5. Launch a container instance of the image in the EC2 instance
 
+Setup commands for EC2:
+sudo apt-get update
+sudo apt-get upgrade
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh --dry-run
+sudo usermod -aG docker ubuntu (run Docker commands without needing to use 'sudo')
+newgrp docker (This will create a new shell with the 'docker' group as the effective group for the duration of that shell session)
+
+
+
 # CD/CI with GitHub actions:
-GitHub actions is used to develop a CD/CI pipeline 
+GitHub actions are used to develop a CD/CI pipeline 
 
 ## **1. Event Trigger:**
 
