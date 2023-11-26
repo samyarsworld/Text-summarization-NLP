@@ -102,22 +102,34 @@ In order, each of these files needs to update when we add a new pipeline (stage)
 6- update main.py
 7- update app.py
 
-# We app and REST API:
+# Web app and REST API:
 
 To handle concurrent requests, FastAPI alongside uvicorn is used.
 
 - FastAPI is a modern, fast (high-performance), web framework for building APIs that works with python.
-- "uvicorn" is used which is an ASGI (Asynchronous Server Gateway Interface) server implementation for Python web applications. ASGI is a specification for asynchronous web servers and frameworks that enables handling more concurrent connections with less resource usage compared to traditional synchronous web servers. To run async apps using uvicorn following command is used: "uvicorn myapp:app --host 0.0.0.0 --port 8000 --reload"
+- "uvicorn" is used which is an ASGI (Asynchronous Server Gateway Interface) server implementation for Python web applications. ASGI is a specification for asynchronous web servers and frameworks that enables handling more concurrent connections with less resource usage compared to traditional synchronous web servers. To run async apps using uvicorn following command is used: "uvicorn myapp:app --host 0.0.0.0 --port 8080 --reload"
 
 # Containerization process:
 
 1. Build docker image
-2. Push docker image to AWS ECR
+2. Push the Docker image to AWS ECR
 3. Launch an EC2 instance in AWS
 4. Pull the docker image from AWS ECR
 5. Launch a container instance of the image in the EC2 instance
 
-# CD/CI Github actions description:
+Setup commands for EC2:
+sudo apt-get update
+sudo apt-get upgrade
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh --dry-run
+sudo usermod -aG docker ubuntu (run Docker commands without needing to use 'sudo')
+newgrp docker (This will create a new shell with the 'docker' group as the effective group for the duration of that shell session)
+
+
+
+# CD/CI with GitHub actions:
+GitHub actions are used to develop a CD/CI pipeline 
 
 ## **1. Event Trigger:**
 
@@ -149,9 +161,9 @@ The workflow contains three jobs: integration, delivery, and deployment.
   - **run:** Defines a shell command that will be executed as part of this step. In this case, it's a simple echo command that outputs the text "Linting repository."
 
 - **Step 3 (run unit tests):**
-  - **run:** Defines a shell command for running unit tests. Similar to the previous step, it uses an echo command to output the text "Running unit tests." Again, this is a placeholder, and will be replaced by actual commands needed to run unit tests.
+  - **run:** Defines a shell command for running unit tests. Similar to the previous step, it uses an echo command to output the text "Running unit tests." Again, this is a placeholder and will be replaced by actual commands needed to run unit tests.
 
-Overall, this job checks out the code from the repository, and then includes steps for linting the code and running unit tests. Note that the actual linting and testing commands are not provided yet.
+Overall, this job checks out the code from the repository and then includes steps for linting the code and running unit tests. Note that the actual linting and testing commands are not provided yet.
 
 ### **3.2. Delivery:**
 
@@ -182,7 +194,7 @@ Overall, this job is essentially handling the deployment process, building a Doc
 
 ### **3.3. Deployment:**
 
-- **runs-on:** Indicates that this job will run on a self-hosted runner unlike the previous jobs that ran on GitHub-hosted runners.
+- **runs-on:** Indicates that this job will run on a self-hosted runner, unlike the previous jobs that ran on GitHub-hosted runners.
 
 - **Step 1 (configure AWS credentials):**
 
