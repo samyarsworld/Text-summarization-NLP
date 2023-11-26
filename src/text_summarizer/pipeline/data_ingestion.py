@@ -4,11 +4,10 @@ from text_summarizer.components.data_ingestion import DataIngestion
 
 class DataIngestionPipeline:
     def __init__(self, config):
-        self.config = config
+        self.config = config.get_data_ingestion_config()
 
     def run(self):
-        data_ingestion_config = self.config.get_data_ingestion_config()
-        data_ingestion = DataIngestion(data_ingestion_config)
+        data_ingestion = DataIngestion(self.config)
         
         data_ingestion.download_files_from_cloud()
         data_ingestion.download_files_from_HuggingFace()

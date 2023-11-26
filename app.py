@@ -1,37 +1,62 @@
 from text_summarizer.pipeline.target_prediction import TargetPredictionPipeline
 import os
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import Response
 from starlette.responses import RedirectResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.middleware.cors import CORSMiddleware
+from text_summarizer.config_manager import ConfigManager
 
+
+config = ConfigManager()
+prediction_pipeline = TargetPredictionPipeline(config)
 
 app = FastAPI()
+# templates = Jinja2Templates(directory="templates")
 
-@app.get("/")
-async def index():
-    return RedirectResponse(url="/docs")
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
-@app.get("/train")
-async def training():
-    try:
-        os.system("python main.py")
-        return Response("Training successful!")
+# @app.get("/index")
+# async def index(request: Request):
+#     return templates.TemplateResponse("index.html", {"request": request})
 
-    except Exception as e:
-        return Response(f"Error Occurred! {e}")
+
+# @app.get("/")
+# async def index():
+#     return RedirectResponse(url="/index")
+
+# @app.get("/train")
+# async def training():
+#     try:
+#         os.system("python main.py")
+#         return Response("Training successful!")
+
+#     except Exception as e:
+#         return Response(f"Error Occurred! {e}")
     
 
 @app.post("/predict")
-async def predict_route(input: str):
+async def predict(data: dict):
     try:
-        prediction_pipeline = TargetPredictionPipeline()
-        output = prediction_pipeline.predict(input)
-        return output
+        text = data["input"]
+        output = prediction_pipeline.run(text)
+        return {"output": output}
     except Exception as e:
-        raise e
+        error_message = str(e)
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {error_message}")
     
 
 if __name__=="__main__":
-    uvicorn.run(app, host="localhost", port=8080)
+    uvicorn.run(app, host="localhost", port=8000)

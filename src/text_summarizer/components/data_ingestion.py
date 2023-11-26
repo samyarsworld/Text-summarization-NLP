@@ -22,11 +22,19 @@ class DataIngestion:
 
         """        
 
-        url = "https://huggingface.co/datasets/samsum/raw/main/samsum.py"
-        response = requests.get(url)
+        logger.info(f"Download dataset started..")
 
-        with open(self.data_class_path, "wb") as f:
-            f.write(response.content)
+        url = "https://huggingface.co/datasets/samsum/raw/main/samsum.py"
+        try:
+            response = requests.get(url)
+
+            with open(self.data_class_path, "wb") as f:
+                f.write(response.content)
+
+            logger.info(f"Download successful!")
+        except Exception as e:
+            logger.exception(e)
+            raise e
 
 
     def download_files_from_cloud(self):
@@ -44,6 +52,8 @@ class DataIngestion:
 
         # Create an S3 client
         s3 = boto3.client(service_name='s3', region_name=AWS_REGION, aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+
+        logger.info(f"Download dataset started..")
 
         # Read the zip file from S3
         response = s3.get_object(Bucket=self.bucket, Key=self.key)

@@ -3,12 +3,10 @@ from pathlib import Path
 from typing import Dict
 
 CONFIG_PATH = Path("config/config.yaml")
-PARAMS_PATH = Path("parameters.yaml")
-
 class ConfigManager:
-    def __init__(self, config_filepath = CONFIG_PATH, params_filepath = PARAMS_PATH):
+    def __init__(self, config_filepath = CONFIG_PATH):
         self.config = read_yaml(config_filepath)
-        self.params = read_yaml(params_filepath)
+        self.params = self.config["model_trainer"]["h_params"]
 
         # Create directories does not override files and folders that already exist 
         create_directories([self.config["artifacts_root"]])

@@ -69,7 +69,8 @@ config = ConfigManager()
 # try:
 #    logger.info(f">>>>>> {STAGE_NAME} stage started <<<<<<") 
 #    target_prediction = TargetPredictionPipeline(config)
-#    prediction = target_prediction.run()
+#    text = "hello world"
+#    prediction = target_prediction.run(text)
 #    logger.info(f">>>>>> {STAGE_NAME} stage completed <<<<<<")
 # except Exception as e:
 #     logger.exception(e)
