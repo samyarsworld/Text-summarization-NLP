@@ -28,7 +28,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # @app.get("/index")
 # async def index(request: Request):
 #     return templates.TemplateResponse("index.html", {"request": request})
