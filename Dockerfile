@@ -10,12 +10,10 @@ WORKDIR /app
 COPY . /app
 
 RUN pip install -r requirements.txt
-RUN pip install torch==2.0.0+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
-
-#  \
-#     --upgrade accelerate \
-#     && pip uninstall -y transformers accelerate \
-#     && pip install transformers accelerate
+RUN pip install torch==2.0.0+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html \
+    --upgrade accelerate \
+    && pip uninstall -y transformers accelerate \
+    && pip install transformers accelerate
 
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
