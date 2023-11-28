@@ -28,13 +28,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# @app.get("/index")
-# async def index(request: Request):
-#     return templates.TemplateResponse("index.html", {"request": request})
+@app.get("/index")
+async def index(request: Request):
+    return "Hello world"
 
-# @app.get("/")
-# async def index():
-#     return RedirectResponse(url="/index")
+@app.get("/")
+async def index():
+    return RedirectResponse(url="/index")
 
 # @app.get("/train")
 # async def training():
@@ -60,7 +60,7 @@ async def predict(data: dict):
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {error_message}")
     
 
-if __name__=="__main__":
-    uvicorn.run(app, host="localhost", port=8080)
+# if __name__=="__main__":
+#     uvicorn.run(app, host="localhost", port=8080)
     
 

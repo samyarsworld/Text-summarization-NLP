@@ -9,12 +9,18 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install -r requirements.txt \
-    --upgrade accelerate \
-    && pip uninstall -y transformers accelerate \
-    && pip install transformers accelerate
+RUN pip install -r requirements.txt
+RUN pip install torch==2.0.0+cpu -f https://download.pytorch.org/whl/cpu/torch_stable.html
+
+#  \
+#     --upgrade accelerate \
+#     && pip uninstall -y transformers accelerate \
+#     && pip install transformers accelerate
 
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /root/.cache
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /root/.cache
 
-CMD ["python", "app.py"]
+EXPOSE 8080
+
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]

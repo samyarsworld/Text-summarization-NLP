@@ -2,7 +2,7 @@ pyYAML
 ensure
 boto3
 py7zr
-torch
+# torch
 
 transformers[sentencepiece]
 datasets
@@ -13,7 +13,6 @@ rouge_score
 nltk
 tqdm
 pandas
-matplotlib
 
 fastapi
 uvicorn
