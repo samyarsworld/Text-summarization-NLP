@@ -17,6 +17,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:3000",
+    "https://sam-deeplearning.vercel.app/"
 ]
 
 app.add_middleware(
@@ -51,7 +52,10 @@ app.add_middleware(
 async def predict(data: dict):
     try:
         text = data["input"]
+        print("PREDICTION STARTED")
         output = prediction_pipeline.run(text)
+        print("PREDICTION FINISHED")
+
         return {"output": output}
     except Exception as e:
         error_message = str(e)
@@ -59,4 +63,6 @@ async def predict(data: dict):
     
 
 if __name__=="__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+    uvicorn.run(app, host="localhost", port=8080)
+    
+
