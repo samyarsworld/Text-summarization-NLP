@@ -48,7 +48,6 @@ async def predict(data: dict):
         return {"output": error_message}
     
 
-# if __name__=="__main__":
-#     uvicorn.run(app, host="localhost", port=8080)
-    
+if __name__=="__main__":
+    # uvicorn.run(app, host="localhost", port=8080)
 
