@@ -1,4 +1,4 @@
-# import uvicorn
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from transformers import AutoTokenizer
@@ -48,6 +48,6 @@ async def predict(data: dict):
         return {"output": error_message}
     
 
-if __name__=="__main__":
+# if __name__=="__main__":
     # uvicorn.run(app, host="localhost", port=8080)
 
