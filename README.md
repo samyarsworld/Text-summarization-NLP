@@ -107,7 +107,7 @@ In order, each of these files needs to update when we add a new pipeline (stage)
 To handle concurrent requests, FastAPI alongside uvicorn is used.
 
 - FastAPI is a modern, fast (high-performance), web framework for building APIs that works with python.
-- "uvicorn" is used which is an ASGI (Asynchronous Server Gateway Interface) server implementation for Python web applications. ASGI is a specification for asynchronous web servers and frameworks that enables handling more concurrent connections with less resource usage compared to traditional synchronous web servers. To run async apps using uvicorn following command is used: "uvicorn myapp:app --host 0.0.0.0 --port 8080 --reload"
+- "uvicorn" is used which is an ASGI (Asynchronous Server Gateway Interface) server implementation for Python web applications. ASGI is a specification for asynchronous web servers and frameworks that enables handling more concurrent connections with less resource usage compared to traditional synchronous web servers. To run async apps using uvicorn following command is used: "uvicorn myapp:app --host 0.0.0.0 --port 80 --reload"
 
 # Containerization process:
 
@@ -126,10 +126,9 @@ sudo sh ./get-docker.sh --dry-run
 sudo usermod -aG docker ubuntu (run Docker commands without needing to use 'sudo')
 newgrp docker (This will create a new shell with the 'docker' group as the effective group for the duration of that shell session)
 
-
-
 # CD/CI with GitHub actions:
-GitHub actions are used to develop a CD/CI pipeline 
+
+GitHub actions are used to develop a CD/CI pipeline
 
 ## **1. Event Trigger:**
 
@@ -233,12 +232,11 @@ sudo usermod -aG docker ubuntu
 
 newgrp docker
 
-
 mkdir actions-runner && cd actions-runner
 
 curl -o actions-runner-linux-x64-2.311.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz
 
-echo "29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278  actions-runner-linux-x64-2.311.0.tar.gz" | shasum -a 256 -c
+echo "29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278 actions-runner-linux-x64-2.311.0.tar.gz" | shasum -a 256 -c
 
 tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz
 

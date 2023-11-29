@@ -19,6 +19,6 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /root/.cache
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
