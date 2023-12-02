@@ -1,5 +1,7 @@
 # Text summarization using NLP
 
+https://sam-deeplearning.vercel.app/text-summarizer
+
 ### Project plan
 
 1 - Build project initialization setup using setuptools, os, and pathlib.
